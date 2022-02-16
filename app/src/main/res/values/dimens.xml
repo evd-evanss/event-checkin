@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <dimen name="verticalMargin">16dp</dimen>
+    <dimen name="horizontalMargin">16dp</dimen>
+
+    <!--TEXT SIZES-->
+    <dimen name="textTitle">35sp</dimen>
+    <dimen name="textTitleSmall">18sp</dimen>
+    <dimen name="textBig">20sp</dimen>
+    <dimen name="textExtraBig">24sp</dimen>
+    <dimen name="textMedium">15sp</dimen>
+    <dimen name="textParagraph">15sp</dimen>
+    <dimen name="textSmall">12sp</dimen>
+    <dimen name="textExtraSmall">10sp</dimen>
+
+    <!--ELEVATION-->
+    <dimen name="elevation_small">2dp</dimen>
+    <dimen name="elevation_medium">4dp</dimen>
+    <dimen name="elevation_big">8dp</dimen>
+    <dimen name="elevation_extra_big">16dp</dimen>
+</resources>

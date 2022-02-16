@@ -1,0 +1,68 @@
+ext {
+    //Android
+    appCompatVersion = "1.4.1"
+    coreKtxVersion = "1.7.0"
+
+    androidDependencies = [
+            appcompat: "androidx.appcompat:appcompat:$appCompatVersion",
+            coreKtx: "androidx.core:core-ktx:$coreKtxVersion"
+    ]
+
+    //Ui
+    materialVersion = "1.5.0"
+    constraintLayoutVersion = "2.1.3"
+
+    uiDependencies = [
+            design: "com.google.android.material:material:$materialVersion",
+            constraintLayout: "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion"
+    ]
+
+    //Unit Test
+    jUnitVersion = "4.12"
+    mockkVersion = "1.12.2"
+    androidxCoreTesting = "2.1.0"
+    coroutineTestVersion = "1.4.2"
+
+    testDependencies = [
+            junit: "junit:junit:$jUnitVersion",
+            mockk: "io.mockk:mockk:$mockkVersion",
+            core: "androidx.arch.core:core-testing:$androidxCoreTesting",
+            coroutinesTest: "org.jetbrains.kotlinx:kotlinx-coroutines-test:$coroutineTestVersion",
+    ]
+
+    //UI Test
+    espressoCoreVersion = "3.4.0"
+    androidTestJunitVersion = "1.1.3"
+
+    androidTestDependencies = [
+            espressoCore: "androidx.test.espresso:espresso-core:$espressoCoreVersion",
+            androidTestJunit: "androidx.test.ext:junit:$androidTestJunitVersion",
+    ]
+
+    retrofit_version = "2.9.0"
+    gsonVersion = "2.9.0"
+    okHttpVersion = "3.14.6"
+
+    networkDependencies = [
+            retrofit: "com.squareup.retrofit2:retrofit:${retrofit_version}",
+            gson: "com.squareup.retrofit2:converter-gson:$gsonVersion",
+            okHttp: "com.squareup.okhttp3:okhttp:$okHttpVersion"
+    ]
+
+    coroutinesVersion= "1.4.0"
+    courotinesDependencies = [
+            "core": "org.jetbrains.kotlinx:kotlinx-coroutines-core:$coroutinesVersion"
+    ]
+
+    dagger_version = "2.38.1"
+
+    daggerDependencies = [
+            dagger: "com.google.dagger:dagger:${dagger_version}",
+            daggerAndroid: "com.google.dagger:dagger-android:${dagger_version}",
+            daggerSupport: "com.google.dagger:dagger-android-support:${dagger_version}"
+    ]
+    daggerCompilers = [
+            compiler: "com.google.dagger:dagger-compiler:${dagger_version}",
+            processor: "com.google.dagger:dagger-android-processor:${dagger_version}"
+    ]
+}
