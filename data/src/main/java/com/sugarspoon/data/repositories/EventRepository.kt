@@ -1,24 +1,35 @@
 package com.sugarspoon.data.repositories
 
-import com.sugarspoon.data.model.Customer
+import com.sugarspoon.data.model.entity.CustomerEntity
+import com.sugarspoon.data.model.entity.EventEntity
+import com.sugarspoon.data.model.entity.toEventEntity
 import com.sugarspoon.data.sources.EventsDataSource
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 interface EventRepository {
-    fun getEvents(): Flow<List<Any>>
-    fun getEventDetail(id: Int): Flow<Any>
-    fun setCheckin(customer: Customer): Flow<Any>
+    fun getEvents(): Flow<List<EventEntity>>
+    fun getEventDetail(id: String): Flow<EventEntity>
+    fun subscribe(customerResponse: CustomerEntity): Flow<Any>
 }
 
 class EventRepositoryImpl @Inject constructor(
     private val dataSource: EventsDataSource
 ): EventRepository {
 
-    override fun getEvents() = dataSource.getEvents()
+    override fun getEvents() = dataSource.getEvents().map { response ->
+        val entityList = mutableListOf<EventEntity>()
+        response.forEach {
+            entityList.add(it.toEventEntity())
+        }
+        entityList
+    }
 
-    override fun getEventDetail(id: Int) = dataSource.getEventsDetail(id)
+    override fun getEventDetail(id: String) = dataSource.getEventsDetail(id).map { response ->
+        response.toEventEntity()
+    }
 
-    override fun setCheckin(customer: Customer) = dataSource.setCheckin(customer)
+    override fun subscribe(customerResponse: CustomerEntity) = dataSource.subscribe(customerResponse)
 
 }

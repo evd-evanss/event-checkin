@@ -24,4 +24,5 @@ abstract class BaseActivity<Binding: ViewBinding>(
         inflater.run { binding = invoke(layoutInflater) }
         setContentView(binding.root)
     }
+
 }

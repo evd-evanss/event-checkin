@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.main.MainActivity">
+    tools:context=".ui.events.EventsActivity">
 
     <include
         android:id="@+id/include"
@@ -13,13 +13,31 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
+    <com.skydoves.androidveil.VeilRecyclerFrameView
         android:id="@+id/eventListRv"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/include"
+        app:veilFrame_baseAlpha="0.6"
+        app:veilFrame_baseColor="@color/teal_200"
+        app:veilFrame_highlightAlpha="1.0"
+        app:veilFrame_highlightColor="@color/teal_200"
+        app:veilFrame_layout="@layout/item_event"
+        app:veilFrame_radius="@dimen/veil_frame_radius"
+        app:veilFrame_shimmerEnable="true"
+        app:veilFrame_veiled="false" />
+
+    <ProgressBar
+        android:id="@+id/eventLoadingPb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="@id/eventListRv"
         app:layout_constraintTop_toBottomOf="@id/include" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="300dp"
+    android:background="@color/gray"
+    android:layout_marginBottom="@dimen/verticalMarginDetail"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <TextView
+        android:id="@+id/itemTitleTv"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textStyle="bold"
+        android:textSize="@dimen/textBig"
+        android:textColor="@color/black"
+        android:layout_marginStart="@dimen/horizontalMargin"
+        android:layout_marginTop="@dimen/verticalMargin"
+        android:layout_marginEnd="@dimen/horizontalMargin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="@tools:sample/lorem" />
+
+    <TextView
+        android:id="@+id/itemSeeMoreTv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/horizontalMargin"
+        android:text="@string/see_more"
+        android:textColor="@color/purple_500"
+        android:layout_marginBottom="@dimen/verticalMargin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/itemPictureIv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/horizontalMargin"
+        android:layout_marginTop="@dimen/verticalMargin"
+        android:layout_marginEnd="@dimen/horizontalMargin"
+        android:layout_marginBottom="@dimen/verticalMargin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/itemSeeMoreTv"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/itemTitleTv" />
+
+    <TextView
+        android:id="@+id/itemDescriptionTv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:textSize="@dimen/textMedium"
+        android:visibility="gone"
+        android:maxLines="@integer/max_lines"
+        android:ellipsize="end"
+        android:layout_marginTop="@dimen/verticalMargin"
+        android:layout_marginBottom="@dimen/verticalMargin"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@id/itemPictureIv"
+        app:layout_constraintStart_toStartOf="@id/itemPictureIv"
+        app:layout_constraintTop_toBottomOf="@id/itemTitleTv"
+        tools:text="@tools:sample/lorem/random" />
+
+    <ProgressBar
+        android:id="@+id/itemLoadingPb"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@id/itemPictureIv"
+        app:layout_constraintEnd_toEndOf="@id/itemPictureIv"
+        app:layout_constraintStart_toStartOf="@id/itemPictureIv"
+        app:layout_constraintTop_toTopOf="@id/itemPictureIv" />
+</androidx.constraintlayout.widget.ConstraintLayout>
