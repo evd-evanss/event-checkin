@@ -4,16 +4,20 @@ import android.content.Context
 import com.sugarspoon.data.BuildConfig
 import dagger.Module
 import dagger.Provides
+import dagger.hilt.InstallIn
+import dagger.hilt.android.components.ViewModelComponent
+import dagger.hilt.android.qualifiers.ApplicationContext
 import okhttp3.OkHttpClient
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import javax.inject.Singleton
+import java.util.concurrent.TimeUnit
 
+@InstallIn(ViewModelComponent::class)
 @Module
 object RetrofitModule {
 
     @Provides
-    @Singleton
     fun retrofit(): Retrofit.Builder {
         return Retrofit.Builder()
             .baseUrl(BuildConfig.BASE_URL)
@@ -21,7 +25,14 @@ object RetrofitModule {
     }
 
     @Provides
-    @Singleton
-    fun providesClient() = OkHttpClient.Builder().build()
+    fun providesClient(@ApplicationContext context: Context) = OkHttpClient.Builder()
+        .addInterceptor(getHttpInterceptor())
+        .connectTimeout(30, TimeUnit.SECONDS)
+        .readTimeout(30, TimeUnit.SECONDS)
+        .build()
+
+    fun getHttpInterceptor() = HttpLoggingInterceptor()
+        .setLevel(HttpLoggingInterceptor.Level.BODY)
+
 
 }

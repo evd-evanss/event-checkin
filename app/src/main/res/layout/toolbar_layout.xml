@@ -5,7 +5,8 @@
     android:layout_height="70dp"
     android:elevation="@dimen/elevation_medium"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/purple_500">
+    android:background="@color/purple_500"
+    tools:targetApi="lollipop">
 
     <TextView
         android:id="@+id/toolbarText"

@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -51,11 +52,19 @@ dependencies {
 
     implementation uiDependencies.values()
 
-    implementation daggerDependencies.values()
+    implementation lifecycleDependencies.values()
 
-    kapt daggerCompilers.values()
+    implementation courotinesDependencies.values()
+
+    implementation networkDependencies.retrofit
+    implementation networkDependencies.gson
 
     implementation testDependencies.values()
     androidTestImplementation androidTestDependencies.values()
-    implementation 'com.android.support:multidex:1.0.3'
+
+    implementation hiltDependencies.hilt
+    kapt hiltDependencies.androidCompiler
+    kapt hiltDependencies.compiler
+    implementation 'com.github.bumptech.glide:glide:4.13.0'
+    kapt 'com.github.bumptech.glide:compiler:4.13.0'
 }

@@ -2,6 +2,8 @@ plugins {
     id 'com.android.library'
     id 'org.jetbrains.kotlin.android'
     id 'kotlin-kapt'
+    id 'kotlin-parcelize'
+    id 'dagger.hilt.android.plugin'
 }
 
 android {
@@ -13,7 +15,7 @@ android {
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
-        buildConfigField 'String', 'BASE_URL', '"https://5f5a8f24d44d640016169133.mockapi.io/api/events"'
+        buildConfigField 'String', 'BASE_URL', '"https://5f5a8f24d44d640016169133.mockapi.io/api/"'
     }
 
     buildTypes {
@@ -43,7 +45,9 @@ dependencies {
 
     implementation courotinesDependencies.values()
 
-    implementation daggerDependencies.values()
+    implementation hiltDependencies.hilt
+    kapt hiltDependencies.androidCompiler
+    kapt hiltDependencies.compiler
+    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 
-    kapt daggerCompilers.values()
 }

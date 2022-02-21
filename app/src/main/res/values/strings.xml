@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Event Checkin</string>
+    <string name="app_name">Event Check-In</string>
+    <string name="see_more">Ver mais</string>
+    <string name="address_placeholder"><![CDATA[<b>Local:</b><br />%s]]></string>
+    <string name="date_placeholder"><![CDATA[<b>Data do Evento:</b><br />%s]]></string>
+    <string name="checkin">Cheguei :)</string>
+    <string name="name_placeholder">Seu nome:</string>
+    <string name="email_placeholder">Seu email:</string>
+    <string name="checkin_action">fazer check-in</string>
+    <string name="checkin_title">Check-In</string>
+    <string name="invalid_email">Email inválido</string>
+    <string name="invalid_name">Nome inválido</string>
 </resources>
