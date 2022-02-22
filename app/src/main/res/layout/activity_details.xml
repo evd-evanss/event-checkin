@@ -8,102 +8,87 @@
     android:fillViewport="true"
     tools:context=".ui.events.EventsActivity">
 
-    <com.skydoves.androidveil.VeilLayout
-        android:id="@+id/detailsShimmerVl"
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        app:veilLayout_baseAlpha="0.6"
-        app:veilLayout_baseColor="@android:color/holo_green_dark"
-        app:veilLayout_dropOff="0.5"
-        app:veilLayout_highlightAlpha="1.0"
-        app:veilLayout_highlightColor="@android:color/holo_green_light"
-        app:veilLayout_radius="6dp"
-        app:veilLayout_shimmerEnable="true"
-        app:veilLayout_veiled="false">
+        tools:context=".ui.events.EventsActivity">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TextView
+            android:id="@+id/detailsTitleTv"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/verticalMargin"
+            android:layout_marginStart="@dimen/horizontalMargin"
+            android:layout_marginEnd="@dimen/horizontalMargin"
+            android:textSize="@dimen/textExtraBig"
+            android:textStyle="bold"
+            android:textColor="@color/black"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Feira de Adoção" />
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/detailsPictureIv"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            tools:context=".ui.events.EventsActivity">
+            android:layout_height="@dimen/default_picture_size"
+            android:layout_marginStart="@dimen/horizontalMargin"
+            android:layout_marginTop="@dimen/verticalMargin"
+            android:layout_marginEnd="@dimen/horizontalMargin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailsTitleTv" />
 
-            <TextView
-                android:id="@+id/detailsTitleTv"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/verticalMargin"
-                android:layout_marginStart="@dimen/horizontalMargin"
-                android:layout_marginEnd="@dimen/horizontalMargin"
-                android:textSize="@dimen/textExtraBig"
-                android:textStyle="bold"
-                android:textColor="@color/black"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:text="Feira de Adoção" />
+        <TextView
+            android:id="@+id/detailsDescriptionTv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/textMedium"
+            android:layout_marginStart="@dimen/horizontalMargin"
+            android:layout_marginTop="@dimen/verticalMargin"
+            android:layout_marginEnd="@dimen/horizontalMargin"
+            app:layout_constraintTop_toBottomOf="@id/detailsPictureIv"
+            tools:maxLines="5"
+            tools:text="@tools:sample/lorem/random" />
 
-            <androidx.appcompat.widget.AppCompatImageView
-                android:id="@+id/detailsPictureIv"
-                android:layout_width="match_parent"
-                android:layout_height="300dp"
-                android:layout_marginStart="@dimen/horizontalMargin"
-                android:layout_marginTop="@dimen/verticalMargin"
-                android:layout_marginEnd="@dimen/horizontalMargin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detailsTitleTv" />
+        <TextView
+            android:id="@+id/detailsAddressTv"
+            android:textSize="@dimen/textMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/horizontalMargin"
+            android:layout_marginTop="@dimen/verticalMargin"
+            android:layout_marginEnd="@dimen/horizontalMargin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/detailsDescriptionTv" />
 
-            <TextView
-                android:id="@+id/detailsDescriptionTv"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textSize="@dimen/textMedium"
-                android:layout_marginStart="@dimen/horizontalMargin"
-                android:layout_marginTop="@dimen/verticalMargin"
-                android:layout_marginEnd="@dimen/horizontalMargin"
-                app:layout_constraintTop_toBottomOf="@id/detailsPictureIv"
-                tools:maxLines="5"
-                tools:text="@tools:sample/lorem/random" />
+        <TextView
+            android:id="@+id/detailsDateTv"
+            android:textSize="@dimen/textMedium"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/horizontalMargin"
+            android:layout_marginTop="@dimen/verticalMargin"
+            android:layout_marginEnd="@dimen/horizontalMargin"
+            app:layout_constraintTop_toBottomOf="@id/detailsAddressTv"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"/>
 
-            <TextView
-                android:id="@+id/detailsAddressTv"
-                android:textSize="@dimen/textMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/horizontalMargin"
-                android:layout_marginTop="@dimen/verticalMargin"
-                android:layout_marginEnd="@dimen/horizontalMargin"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/detailsDescriptionTv" />
-
-            <TextView
-                android:id="@+id/detailsDateTv"
-                android:textSize="@dimen/textMedium"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/horizontalMargin"
-                android:layout_marginTop="@dimen/verticalMargin"
-                android:layout_marginEnd="@dimen/horizontalMargin"
-                app:layout_constraintTop_toBottomOf="@id/detailsAddressTv"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"/>
-
-            <com.google.android.material.button.MaterialButton
-                android:id="@+id/detailsCheckinBt"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/horizontalMargin"
-                android:layout_marginTop="@dimen/verticalMargin"
-                android:layout_marginEnd="@dimen/horizontalMargin"
-                android:layout_marginBottom="@dimen/verticalMargin"
-                android:text="@string/checkin"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/detailsDateTv"
-                app:layout_constraintVertical_bias="1.0" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </com.skydoves.androidveil.VeilLayout>
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/detailsCheckinBt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/horizontalMargin"
+            android:layout_marginTop="@dimen/verticalMargin"
+            android:layout_marginEnd="@dimen/horizontalMargin"
+            android:layout_marginBottom="@dimen/verticalMargin"
+            android:text="@string/checkin"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/detailsDateTv"
+            app:layout_constraintVertical_bias="1.0" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

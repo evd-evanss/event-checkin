@@ -3,7 +3,6 @@ package com.sugarspoon.eventcheckin.ui.details
 import android.content.Context
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.activity.viewModels
@@ -30,21 +29,21 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding>(
         SubscribeBottomDialog.create(context)
     }
 
+    private val messageDialog by lazy {
+        MessageBottomDialog.create(context)
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         event = intent.extras?.get(EVENT_EXTRA) as EventEntity
-        viewModel.handle(DetailsIntent.LoadDetails(eventDetail = event))
         setupState()
         setupListener()
+        loadEventDetails(event)
     }
 
     private fun setupState() = viewModel.state.observe(this) { state ->
         when (state) {
-            is DetailsState.LoadEventDetails -> loadEventDetails(state.eventDetail)
-            is DetailsState.DismissDialog -> {
-                subscribeDialog.dismiss()
-                finish()
-            }
+            is DetailsState.DisplaySuccess -> displaySuccess()
             is DetailsState.DisplayLoading -> subscribeDialog.displayLoading(state.isLoading)
             is DetailsState.DisplayError -> displayError(state.error)
         }
@@ -56,7 +55,7 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding>(
         }
         subscribeDialog.subscribeListener = { name, email ->
             viewModel.handle(
-                DetailsIntent.SubscribeCustomer(
+                DetailsIntent.SetCheckin(
                     customer = CustomerEntity(
                         eventId = event.id,
                         name = name,
@@ -67,27 +66,26 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding>(
         }
     }
 
+    private fun displaySuccess() {
+        messageDialog.run {
+            show()
+            actionListener  = {
+                subscribeDialog.dismiss()
+                finish()
+            }
+        }
+    }
+
     private fun loadEventDetails(event: EventEntity) = with(binding) {
         detailsTitleTv.text = event.title
         detailsDescriptionTv.text = event.description
         detailsPictureIv.loadImage(
             context = context,
             url = event.image,
-            onLoading = {
-                if (it) {
-                    detailsShimmerVl.veil()
-                } else {
-                    detailsShimmerVl.unVeil()
-                }
-            },
-            onSuccess = {
-
-            },
             onError = {
                 detailsPictureIv.visibility = View.GONE
             }
         )
-
         detailsAddressTv.text = getString(
             R.string.address_placeholder,
             getAddress(event.latitude.toDouble(), event.longitude.toDouble())

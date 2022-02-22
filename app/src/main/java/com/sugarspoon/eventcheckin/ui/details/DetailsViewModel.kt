@@ -1,7 +1,6 @@
 package com.sugarspoon.eventcheckin.ui.details
 
 import com.sugarspoon.data.model.entity.CustomerEntity
-import com.sugarspoon.data.model.entity.EventEntity
 import com.sugarspoon.data.repositories.EventRepository
 import com.sugarspoon.eventcheckin.ui.base.BaseViewModel
 import com.sugarspoon.eventcheckin.utils.onCollect
@@ -15,21 +14,16 @@ class DetailsViewModel @Inject constructor(
 
     override fun handle(intent: DetailsIntent) {
         when (intent) {
-            is DetailsIntent.LoadDetails -> loadDetails(intent.eventDetail)
-            is DetailsIntent.SubscribeCustomer -> subscribeCustomer(intent.customer)
+            is DetailsIntent.SetCheckin -> setCheckin(intent.customer)
         }
     }
 
-    private fun loadDetails(eventDetail: EventEntity) {
-        _state.value = DetailsState.LoadEventDetails(eventDetail = eventDetail)
-    }
-
-    private fun subscribeCustomer(customer: CustomerEntity) = repository.subscribe(customer).onCollect(
+    private fun setCheckin(customer: CustomerEntity) = repository.checkin(customer).onCollect(
         onLoading = {
             _state.value = DetailsState.DisplayLoading(isLoading = it)
         },
         onSuccess = {
-            _state.value = DetailsState.DismissDialog
+            _state.value = DetailsState.DisplaySuccess
         },
         onError = {
             _state.value = DetailsState.DisplayError(error = it.message.orEmpty())
