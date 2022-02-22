@@ -14,11 +14,14 @@ ext {
     materialVersion = "1.5.0"
     constraintLayoutVersion = "2.1.3"
     androidVeilVersion = "1.1.1"
+    glideVersion = "4.13.0"
 
     uiDependencies = [
             design: "com.google.android.material:material:$materialVersion",
             constraintLayout: "androidx.constraintlayout:constraintlayout:$constraintLayoutVersion",
-            shimmer: "com.github.skydoves:androidveil:$androidVeilVersion"
+            shimmer: "com.github.skydoves:androidveil:$androidVeilVersion",
+            glide: "com.github.bumptech.glide:glide:$glideVersion",
+            glideCompiler: "com.github.bumptech.glide:compiler:$glideVersion"
     ]
 
     //Unit Test
@@ -46,11 +49,13 @@ ext {
     retrofit_version = "2.8.1"
     gsonVersion = "2.9.0"
     okHttpVersion = "3.14.6"
+    okHttpInterceptorVersion = "4.9.3"
 
     networkDependencies = [
             retrofit: "com.squareup.retrofit2:retrofit:${retrofit_version}",
             gson: "com.squareup.retrofit2:converter-gson:$gsonVersion",
             okHttp: "com.squareup.okhttp3:okhttp:$okHttpVersion",
+            interceptor: "com.squareup.okhttp3:logging-interceptor:$okHttpInterceptorVersion"
     ]
 
     coroutinesVersion= "1.4.0"
@@ -59,11 +64,12 @@ ext {
             "coroutinesAndroid": "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutinesVersion"
     ]
 
-    hiltVersion = ""
+    hiltVersion = "2.41"
+    hiltCompilerVersion = "1.0.0"
     hiltDependencies = [
-            hilt: "com.google.dagger:hilt-android:2.41",
-            androidCompiler: "com.google.dagger:hilt-android-compiler:2.41",
-            compiler: 'androidx.hilt:hilt-compiler:1.0.0'
+            hilt: "com.google.dagger:hilt-android:$hiltVersion",
+            androidCompiler: "com.google.dagger:hilt-android-compiler:$hiltVersion",
+            compiler: "androidx.hilt:hilt-compiler:$hiltCompilerVersion"
     ]
 
     lifecycle_version = "2.4.1"

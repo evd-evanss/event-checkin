@@ -48,6 +48,5 @@ dependencies {
     implementation hiltDependencies.hilt
     kapt hiltDependencies.androidCompiler
     kapt hiltDependencies.compiler
-    implementation("com.squareup.okhttp3:logging-interceptor:4.9.3")
 
 }
