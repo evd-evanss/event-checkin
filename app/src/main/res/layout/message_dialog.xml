@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/verticalMargin"
+        android:orientation="horizontal">
+        <TextView
+            android:id="@+id/messageTitleTv"
+            android:textSize="@dimen/textTitle"
+            tools:text="@string/welcome"
+            android:textColor="@color/black"
+            android:layout_marginStart="@dimen/horizontalMargin"
+            android:layout_marginEnd="@dimen/horizontalMargin"
+            android:layout_weight="1"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"/>
+
+        <androidx.appcompat.widget.AppCompatImageView
+            android:id="@+id/messageCloseIv"
+            app:srcCompat="@drawable/ic_close"
+            android:layout_marginEnd="@dimen/horizontalMargin"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/messageBodyTv"
+        android:textSize="@dimen/textBig"
+        tools:text="@string/success_checkin"
+        android:layout_marginTop="@dimen/verticalMargin"
+        android:layout_marginStart="@dimen/horizontalMargin"
+        android:layout_marginEnd="@dimen/horizontalMargin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/messageActionBt"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/horizontalMargin"
+        android:layout_marginTop="@dimen/verticalMargin"
+        android:layout_marginEnd="@dimen/horizontalMargin"
+        android:layout_marginBottom="@dimen/verticalMargin"
+        tools:text="@string/action_close" />
+</LinearLayout>

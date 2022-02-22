@@ -2,13 +2,14 @@ package com.sugarspoon.eventcheckin.ui.events
 
 import android.os.Bundle
 import android.view.View
-import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sugarspoon.data.model.entity.EventEntity
+import com.sugarspoon.eventcheckin.R
 import com.sugarspoon.eventcheckin.databinding.ActivityEventsBinding
 import com.sugarspoon.eventcheckin.ui.base.BaseActivity
 import com.sugarspoon.eventcheckin.ui.details.DetailsActivity.Companion.onDetailsIntent
+import com.sugarspoon.eventcheckin.ui.details.MessageBottomDialog
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -19,6 +20,8 @@ class EventsActivity : BaseActivity<ActivityEventsBinding>(ActivityEventsBinding
     private val eventsAdapter by lazy {
         EventsAdapter(this)
     }
+
+    private var eventId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,13 +45,14 @@ class EventsActivity : BaseActivity<ActivityEventsBinding>(ActivityEventsBinding
             is EventsState.DisplayShimmer -> displayShimmer(state.isLoading)
             is EventsState.DisplayLoading -> displayLoading(state.isLoading)
             is EventsState.OpenDetail -> openDetail(state.eventDetail)
-            is EventsState.DisplayError -> displayError(state.error)
+            is EventsState.DisplayError -> displayError(state.isLoadEventsError)
         }
     }
 
     private fun setupListeners() {
         eventsAdapter.seeMoreClick = { id ->
-            viewModel.handle(EventsIntent.GetDetailsById(id = id))
+            eventId = id
+            viewModel.handle(EventsIntent.GetDetailsById(id = eventId))
         }
     }
 
@@ -76,7 +80,23 @@ class EventsActivity : BaseActivity<ActivityEventsBinding>(ActivityEventsBinding
         }
     }
 
-    private fun displayError(error: String) {
-        Toast.makeText(this, error, Toast.LENGTH_LONG).show()
+    private fun displayError(isLoadEventsError: Boolean) {
+        MessageBottomDialog(
+            isSuccessDialog = false,
+            titleDialog = R.string.ops,
+            message = R.string.default_error,
+            buttonText = R.string.action_try_again,
+            context = context
+        ).apply {
+            show()
+            actionListener = {
+                if (isLoadEventsError) {
+                    viewModel.handle(EventsIntent.TryAgain)
+                } else {
+                    viewModel.handle(EventsIntent.GetDetailsById(eventId))
+                }
+                dismiss()
+            }
+        }
     }
 }

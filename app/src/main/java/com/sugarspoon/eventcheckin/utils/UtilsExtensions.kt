@@ -23,11 +23,11 @@ import java.util.*
 fun AppCompatImageView.loadImage(
     context: Context,
     url: String,
-    onError: () -> Unit,
-    onLoading: (Boolean) -> Unit,
-    onSuccess: () -> Unit
+    onError: (() -> Unit)? = null,
+    onLoading: ((Boolean) -> Unit)? = null,
+    onSuccess: (() -> Unit)? = null
 ) {
-    onLoading.invoke(true)
+    onLoading?.invoke(true)
     Glide.with(context)
         .load(url.fixProtocol())
         .centerCrop()
@@ -41,8 +41,8 @@ fun AppCompatImageView.loadImage(
                     target: com.bumptech.glide.request.target.Target<Drawable?>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    onError.invoke()
-                    onLoading.invoke(false)
+                    onError?.invoke()
+                    onLoading?.invoke(false)
                     return false
                 }
 
@@ -53,8 +53,8 @@ fun AppCompatImageView.loadImage(
                     dataSource: com.bumptech.glide.load.DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    onSuccess.invoke()
-                    onLoading.invoke(false)
+                    onSuccess?.invoke()
+                    onLoading?.invoke(false)
                     return false
                 }
             }

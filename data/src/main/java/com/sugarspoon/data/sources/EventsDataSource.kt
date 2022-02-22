@@ -28,9 +28,9 @@ class EventsDataSource @Inject constructor(
         emit(service.getEventsDetail(id))
     }
 
-    fun subscribe(customer: CustomerEntity) = flow {
+    fun setCheckin(customer: CustomerEntity) = flow {
         emit(
-            service.setCheckin(Gson().toJson(customer))
+            service.setCheckin(customer)
         )
     }
 
@@ -42,8 +42,9 @@ class EventsDataSource @Inject constructor(
         @GET("events/{id}")
         suspend fun getEventsDetail(@Path("id") id: String): EventResponse
 
+        @Headers("Content-Type: application/json")
         @POST("checkin")
-        suspend fun setCheckin(@Body customer: String): Any
+        suspend fun setCheckin(@Body customer: CustomerEntity): Any
 
     }
 }

@@ -21,4 +21,5 @@
     <dimen name="elevation_big">8dp</dimen>
     <dimen name="elevation_extra_big">16dp</dimen>
     <dimen name="veil_frame_radius">8dp</dimen>
+    <dimen name="default_picture_size">300dp</dimen>
 </resources>

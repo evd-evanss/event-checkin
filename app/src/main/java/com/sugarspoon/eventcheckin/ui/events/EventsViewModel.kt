@@ -14,6 +14,7 @@ class EventsViewModel @Inject constructor(
     override fun handle(intent: EventsIntent) {
         when (intent) {
             is EventsIntent.LoadEvents -> loadEvents()
+            is EventsIntent.TryAgain -> loadEvents()
             is EventsIntent.GetDetailsById -> getDetailsById(intent.id)
         }
     }
@@ -27,7 +28,7 @@ class EventsViewModel @Inject constructor(
                 _state.value = EventsState.UpdateData(it)
             },
             onError = {
-                _state.value = EventsState.DisplayError(error = it.message ?: DEFAULT_MESSAGE_ERROR)
+                _state.value = EventsState.DisplayError(isLoadEventsError = true)
             }
         )
     }
@@ -40,12 +41,7 @@ class EventsViewModel @Inject constructor(
             _state.value = EventsState.OpenDetail(eventDetail = eventDetail)
         },
         onError = {
-            EventsState.DisplayError(error = it.message ?: DEFAULT_MESSAGE_ERROR)
+            _state.value = EventsState.DisplayError(isLoadEventsError = false)
         }
     )
-
-    companion object {
-        private const val DEFAULT_MESSAGE_ERROR =
-            "Todo mundo erra e dessa vez fui eu :(, tente novamente mais tarde"
-    }
 }

@@ -10,4 +10,10 @@
     <string name="checkin_title">Check-In</string>
     <string name="invalid_email">Email inválido</string>
     <string name="invalid_name">Nome inválido</string>
+    <string name="welcome">Seja Bem Vindo :)</string>
+    <string name="success_checkin">Checkin realizado com sucesso</string>
+    <string name="action_close">Fechar</string>
+    <string name="default_error">Todo mundo erra e dessa vez fui eu\n Tente novamente mais tarde</string>
+    <string name="action_try_again">Tentar Novamente</string>
+    <string name="ops">":( Ops! "</string>
 </resources>

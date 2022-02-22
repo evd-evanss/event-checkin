@@ -11,7 +11,7 @@ import javax.inject.Inject
 interface EventRepository {
     fun getEvents(): Flow<List<EventEntity>>
     fun getEventDetail(id: String): Flow<EventEntity>
-    fun subscribe(customerResponse: CustomerEntity): Flow<Any>
+    fun checkin(customerResponse: CustomerEntity): Flow<Any>
 }
 
 class EventRepositoryImpl @Inject constructor(
@@ -30,6 +30,6 @@ class EventRepositoryImpl @Inject constructor(
         response.toEventEntity()
     }
 
-    override fun subscribe(customerResponse: CustomerEntity) = dataSource.subscribe(customerResponse)
+    override fun checkin(customer: CustomerEntity) = dataSource.setCheckin(customer)
 
 }
