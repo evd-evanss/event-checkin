@@ -10,7 +10,7 @@ Modulo Data -> Módulo utilizado para abrigar repositórios, datasource e model,
 Design Pattern -> MVI
 Escolhi este design pattern estrutural devido a sua facilidade de legibilidade além de também facilitar os testes unitários
 
-## Frameworks
+## Frameworks/Libraries
 Retrofit, OkHttp, Gson -> Escolhido para manipulação de rede 
 Dagger Hilt -> Escolhido para injeção de dependências
 Mockk -> Escolhido para Testes Unitários
