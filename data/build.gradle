@@ -12,7 +12,7 @@ android {
     defaultConfig {
         minSdk 19
         targetSdk 32
-
+        multiDexEnabled true
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles "consumer-rules.pro"
         buildConfigField 'String', 'BASE_URL', '"https://5f5a8f24d44d640016169133.mockapi.io/api/"'
@@ -43,10 +43,16 @@ dependencies {
 
     implementation networkDependencies.values()
 
+    implementation (okHttpSupport){
+        force = true //API 19 support
+    }
     implementation courotinesDependencies.values()
+
+    implementation testDependencies.values()
 
     implementation hiltDependencies.hilt
     kapt hiltDependencies.androidCompiler
     kapt hiltDependencies.compiler
 
+    implementation multidexDependency
 }

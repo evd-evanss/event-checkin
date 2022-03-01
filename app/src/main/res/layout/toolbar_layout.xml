@@ -5,14 +5,13 @@
     android:layout_height="70dp"
     android:elevation="@dimen/elevation_medium"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/purple_500"
+    android:background="@color/cianDark"
     tools:targetApi="lollipop">
 
     <TextView
         android:id="@+id/toolbarText"
-        android:text="@string/app_name"
-        android:textColor="@color/white"
-        android:textSize="@dimen/textExtraBig"
+        android:text="@string/events"
+        style="@style/TextToolbar"
         android:layout_marginStart="@dimen/horizontalMargin"
         android:layout_marginEnd="@dimen/horizontalMargin"
         android:layout_width="match_parent"

@@ -6,21 +6,27 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+    <View
+        android:id="@+id/messageStatusV"
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@color/cianDark" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/verticalMargin"
         android:orientation="horizontal">
+
         <TextView
             android:id="@+id/messageTitleTv"
-            android:textSize="@dimen/textTitle"
-            tools:text="@string/welcome"
-            android:textColor="@color/black"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/horizontalMargin"
             android:layout_marginEnd="@dimen/horizontalMargin"
             android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            style="@style/TextTitle"
+            tools:text="@string/welcome" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/messageCloseIv"
@@ -33,7 +39,7 @@
 
     <TextView
         android:id="@+id/messageBodyTv"
-        android:textSize="@dimen/textBig"
+        style="@style/TextParagraph"
         tools:text="@string/success_checkin"
         android:layout_marginTop="@dimen/verticalMargin"
         android:layout_marginStart="@dimen/horizontalMargin"
@@ -46,6 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/horizontalMargin"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_marginTop="@dimen/verticalMargin"
         android:layout_marginEnd="@dimen/horizontalMargin"
         android:layout_marginBottom="@dimen/verticalMargin"

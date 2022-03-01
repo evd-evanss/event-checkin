@@ -2,6 +2,7 @@ package com.sugarspoon.data.di
 
 import android.content.Context
 import com.sugarspoon.data.BuildConfig
+import com.sugarspoon.data.Tls12SocketFactory.Companion.enableTls12
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -26,6 +27,7 @@ object RetrofitModule {
 
     @Provides
     fun providesClient(@ApplicationContext context: Context) = OkHttpClient.Builder()
+        .enableTls12()
         .addInterceptor(getHttpInterceptor())
         .connectTimeout(30, TimeUnit.SECONDS)
         .readTimeout(30, TimeUnit.SECONDS)

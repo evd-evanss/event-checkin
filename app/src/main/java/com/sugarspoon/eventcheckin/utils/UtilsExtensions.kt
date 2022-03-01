@@ -7,17 +7,14 @@ import android.location.Geocoder
 import android.os.Build
 import android.text.Html
 import android.text.Spanned
-import android.text.TextUtils
 import android.util.Patterns
 import androidx.appcompat.widget.AppCompatImageView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
-import com.sugarspoon.eventcheckin.R
 import java.sql.Timestamp
 import java.text.SimpleDateFormat
 import java.util.*
-
 
 @SuppressLint("CheckResult")
 fun AppCompatImageView.loadImage(

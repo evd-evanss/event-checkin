@@ -8,14 +8,19 @@ import android.widget.Toast
 import androidx.activity.viewModels
 import com.sugarspoon.data.model.entity.CustomerEntity
 import com.sugarspoon.data.model.entity.EventEntity
+import com.sugarspoon.data.model.entity.toEventShareEntity
 import com.sugarspoon.eventcheckin.R
 import com.sugarspoon.eventcheckin.databinding.ActivityDetailsBinding
 import com.sugarspoon.eventcheckin.ui.base.BaseActivity
-import com.sugarspoon.eventcheckin.utils.loadImage
+import com.sugarspoon.eventcheckin.ui.widgets.MessageBottomDialog
+import com.sugarspoon.eventcheckin.ui.widgets.MessageDialogFactory
+import com.sugarspoon.eventcheckin.ui.widgets.SubscribeBottomDialog
 import com.sugarspoon.eventcheckin.utils.getAddress
+import com.sugarspoon.eventcheckin.utils.loadImage
 import com.sugarspoon.eventcheckin.utils.toHtml
 import com.sugarspoon.eventcheckin.utils.toLocalDate
 import dagger.hilt.android.AndroidEntryPoint
+
 
 @AndroidEntryPoint
 class DetailsActivity : BaseActivity<ActivityDetailsBinding>(
@@ -27,10 +32,6 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding>(
 
     private val subscribeDialog by lazy {
         SubscribeBottomDialog.create(context)
-    }
-
-    private val messageDialog by lazy {
-        MessageBottomDialog.create(context)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -46,6 +47,7 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding>(
             is DetailsState.DisplaySuccess -> displaySuccess()
             is DetailsState.DisplayLoading -> subscribeDialog.displayLoading(state.isLoading)
             is DetailsState.DisplayError -> displayError(state.error)
+            is DetailsState.ShareEvent -> shareEvent(state.content)
         }
     }
 
@@ -64,16 +66,22 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding>(
                 )
             )
         }
+        detailsShareIv.setOnClickListener {
+            viewModel.handle(DetailsIntent.ShareEvent(event.toEventShareEntity(context)))
+        }
     }
 
     private fun displaySuccess() {
-        messageDialog.run {
-            show()
-            actionListener  = {
-                subscribeDialog.dismiss()
-                finish()
+        subscribeDialog.dismiss()
+        MessageDialogFactory(this)
+            .createSuccess()
+            .apply {
+                show()
+                actionListener = {
+                    subscribeDialog.dismiss()
+                    finish()
+                }
             }
-        }
     }
 
     private fun loadEventDetails(event: EventEntity) = with(binding) {
@@ -82,6 +90,9 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding>(
         detailsPictureIv.loadImage(
             context = context,
             url = event.image,
+            onLoading = {
+                if (it) detailsShimmerVl.veil() else detailsShimmerVl.unVeil()
+            },
             onError = {
                 detailsPictureIv.visibility = View.GONE
             }
@@ -99,6 +110,17 @@ class DetailsActivity : BaseActivity<ActivityDetailsBinding>(
     private fun displayError(error: String) {
         Toast.makeText(context, error, Toast.LENGTH_LONG).show()
         subscribeDialog.clear()
+    }
+
+    private fun shareEvent(content: String) {
+        val intent = Intent(Intent.ACTION_SEND)
+        intent.type = "text/plain"
+        intent.putExtra(
+            Intent.EXTRA_SUBJECT,
+            binding.detailsTitleTv.text.toString()
+        )
+        intent.putExtra(Intent.EXTRA_TEXT, content)
+        startActivity(Intent.createChooser(intent, getString(R.string.share_using)))
     }
 
     companion object {

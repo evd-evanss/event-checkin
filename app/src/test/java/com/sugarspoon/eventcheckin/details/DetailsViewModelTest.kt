@@ -1,13 +1,14 @@
 package com.sugarspoon.eventcheckin.details
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.sugarspoon.data.model.entity.CustomerEntity
+import com.sugarspoon.data.model.entity.EventShareEntity
+import com.sugarspoon.eventcheckin.base.BaseViewModelTest
+import com.sugarspoon.eventcheckin.base.emittedOnce
 import com.sugarspoon.eventcheckin.repositoryfake.Repository
 import com.sugarspoon.eventcheckin.ui.details.DetailsIntent
 import com.sugarspoon.eventcheckin.ui.details.DetailsState
 import com.sugarspoon.eventcheckin.ui.details.DetailsViewModel
-import com.sugarspoon.rules.CoroutineTestRule
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
@@ -16,20 +17,13 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
-class DetailsViewModelTest {
-    
-    @get:Rule
-    var coroutinesTestRule = CoroutineTestRule()
-
-    @get:Rule
-    val instantExecutorRule = InstantTaskExecutorRule()
+class DetailsViewModelTest : BaseViewModelTest() {
 
     private lateinit var viewModel: DetailsViewModel
 
@@ -57,13 +51,27 @@ class DetailsViewModelTest {
     fun `should make ckeck-in on click checkin button`() = runBlockingTest {
         val customer = getFakeCustomer()
 
-        every { repository.checkin(customer) } returns flowOf(Any())
+        coEvery { repository.checkin(customer) } returns flowOf(Any())
 
         viewModel.handle(DetailsIntent.SetCheckin(customer))
 
-        verify(atLeast = 1) { state.onChanged(DetailsState.DisplayLoading(isLoading = true)) }
-        verify(atLeast = 1) { state.onChanged(DetailsState.DisplayLoading(isLoading = false)) }
-        verify(atLeast = 1) { state.onChanged(DetailsState.DisplaySuccess) }
+        state emittedOnce DetailsState.DisplayLoading(isLoading = true)
+        state emittedOnce DetailsState.DisplayLoading(isLoading = false)
+        state emittedOnce DetailsState.DisplaySuccess
+    }
+
+    @Test
+    fun `should share event on click in button share`() {
+        //given
+        val event = EventShareEntity(
+            content = "Lorem Ipsum is simply dummy text"
+        )
+
+        //when
+        viewModel.handle(DetailsIntent.ShareEvent(event))
+
+        //then
+        state emittedOnce DetailsState.ShareEvent(event.content)
     }
 
     private fun getFakeCustomer() = CustomerEntity(

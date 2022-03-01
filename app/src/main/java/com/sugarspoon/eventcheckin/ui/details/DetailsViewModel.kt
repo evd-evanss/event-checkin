@@ -1,6 +1,7 @@
 package com.sugarspoon.eventcheckin.ui.details
 
 import com.sugarspoon.data.model.entity.CustomerEntity
+import com.sugarspoon.data.model.entity.EventShareEntity
 import com.sugarspoon.data.repositories.EventRepository
 import com.sugarspoon.eventcheckin.ui.base.BaseViewModel
 import com.sugarspoon.eventcheckin.utils.onCollect
@@ -15,6 +16,7 @@ class DetailsViewModel @Inject constructor(
     override fun handle(intent: DetailsIntent) {
         when (intent) {
             is DetailsIntent.SetCheckin -> setCheckin(intent.customer)
+            is DetailsIntent.ShareEvent -> handleShareEvent(intent.event)
         }
     }
 
@@ -29,4 +31,8 @@ class DetailsViewModel @Inject constructor(
             _state.value = DetailsState.DisplayError(error = it.message.orEmpty())
         }
     )
+
+    private fun handleShareEvent(event: EventShareEntity) {
+        _state.value = DetailsState.ShareEvent(content = event.content)
+    }
 }

@@ -38,6 +38,16 @@ android {
         resources.excludes.add("META-INF/licenses/*")
         resources.excludes.add("win32-x86/*")
         resources.excludes.add("win32-x86-64/*")
+        resources.excludes.add("META-INF/*.kotlin_module")
+        exclude 'META-INF/DEPENDENCIES'
+        exclude 'META-INF/LICENSE'
+        exclude 'META-INF/LICENSE.txt'
+        exclude 'META-INF/license.txt'
+        exclude 'META-INF/NOTICE'
+        exclude 'META-INF/NOTICE.txt'
+        exclude 'META-INF/notice.txt'
+        exclude 'META-INF/ASL2.0'
+        exclude("META-INF/*.kotlin_module")
     }
     viewBinding {
         enabled = true
@@ -60,10 +70,18 @@ dependencies {
     implementation networkDependencies.gson
 
     implementation testDependencies.values()
+    implementation googlePlayServicesDependencies.values()
     androidTestImplementation androidTestDependencies.values()
 
     implementation hiltDependencies.hilt
     kapt hiltDependencies.androidCompiler
     kapt hiltDependencies.compiler
     kapt uiDependencies.glideCompiler
+
+    implementation multidexDependency
+
+    implementation('com.github.bumptech.glide:okhttp3-integration:1.4.0'){
+        exclude group: 'glide-parent'
+    }
+
 }

@@ -5,19 +5,18 @@ import android.view.View
 import androidx.activity.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.sugarspoon.data.model.entity.EventEntity
-import com.sugarspoon.eventcheckin.R
 import com.sugarspoon.eventcheckin.databinding.ActivityEventsBinding
 import com.sugarspoon.eventcheckin.ui.base.BaseActivity
 import com.sugarspoon.eventcheckin.ui.details.DetailsActivity.Companion.onDetailsIntent
-import com.sugarspoon.eventcheckin.ui.details.MessageBottomDialog
+import com.sugarspoon.eventcheckin.ui.widgets.MessageDialogFactory
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class EventsActivity : BaseActivity<ActivityEventsBinding>(ActivityEventsBinding::inflate) {
 
-    private val viewModel: EventsViewModel by viewModels ()
+    private val viewModel: EventsViewModel by viewModels()
 
-    private val eventsAdapter by lazy {
+    internal val eventsAdapter by lazy {
         EventsAdapter(this)
     }
 
@@ -40,7 +39,7 @@ class EventsActivity : BaseActivity<ActivityEventsBinding>(ActivityEventsBinding
     }
 
     private fun setupStates() = viewModel.state.observe(this) { state ->
-        when(state) {
+        when (state) {
             is EventsState.UpdateData -> updateData(state.data)
             is EventsState.DisplayShimmer -> displayShimmer(state.isLoading)
             is EventsState.DisplayLoading -> displayLoading(state.isLoading)
@@ -80,23 +79,18 @@ class EventsActivity : BaseActivity<ActivityEventsBinding>(ActivityEventsBinding
         }
     }
 
-    private fun displayError(isLoadEventsError: Boolean) {
-        MessageBottomDialog(
-            isSuccessDialog = false,
-            titleDialog = R.string.ops,
-            message = R.string.default_error,
-            buttonText = R.string.action_try_again,
-            context = context
-        ).apply {
-            show()
-            actionListener = {
-                if (isLoadEventsError) {
-                    viewModel.handle(EventsIntent.TryAgain)
-                } else {
-                    viewModel.handle(EventsIntent.GetDetailsById(eventId))
+    private fun displayError(isLoadEventsError: Boolean) =
+        MessageDialogFactory(this)
+            .createError()
+            .apply {
+                show()
+                actionListener = {
+                    if (isLoadEventsError) {
+                        viewModel.handle(EventsIntent.TryAgain)
+                    } else {
+                        viewModel.handle(EventsIntent.GetDetailsById(eventId))
+                    }
+                    dismiss()
                 }
-                dismiss()
             }
-        }
-    }
 }

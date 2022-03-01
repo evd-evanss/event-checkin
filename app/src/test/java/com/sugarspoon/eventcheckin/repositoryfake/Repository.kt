@@ -15,7 +15,7 @@ class Repository() : EventRepository {
         emit(getFakeEventResponse())
     }
 
-    override fun checkin(customerResponse: CustomerEntity) = flow {
+    override fun checkin(customer: CustomerEntity) = flow {
         emit(Any())
     }
 
