@@ -22,4 +22,5 @@
     <dimen name="elevation_extra_big">16dp</dimen>
     <dimen name="veil_frame_radius">8dp</dimen>
     <dimen name="default_picture_size">300dp</dimen>
+    <dimen name="cardElevation">6dp</dimen>
 </resources>

@@ -11,7 +11,7 @@ import javax.inject.Inject
 interface EventRepository {
     fun getEvents(): Flow<List<EventEntity>>
     fun getEventDetail(id: String): Flow<EventEntity>
-    fun checkin(customerResponse: CustomerEntity): Flow<Any>
+    fun checkin(customer: CustomerEntity): Flow<Any>
 }
 
 class EventRepositoryImpl @Inject constructor(

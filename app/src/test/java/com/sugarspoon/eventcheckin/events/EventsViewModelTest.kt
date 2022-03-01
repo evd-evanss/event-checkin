@@ -1,14 +1,14 @@
 package com.sugarspoon.eventcheckin.events
 
-import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import androidx.lifecycle.Observer
 import com.sugarspoon.data.model.entity.CustomerEntity
 import com.sugarspoon.data.model.entity.EventEntity
 import com.sugarspoon.data.repositories.EventRepository
+import com.sugarspoon.eventcheckin.base.BaseViewModelTest
+import com.sugarspoon.eventcheckin.base.emittedOnce
 import com.sugarspoon.eventcheckin.ui.events.EventsIntent
 import com.sugarspoon.eventcheckin.ui.events.EventsState
 import com.sugarspoon.eventcheckin.ui.events.EventsViewModel
-import com.sugarspoon.rules.CoroutineTestRule
 import io.mockk.*
 import io.mockk.impl.annotations.MockK
 import io.mockk.impl.annotations.RelaxedMockK
@@ -18,20 +18,13 @@ import kotlinx.coroutines.flow.flowOf
 import kotlinx.coroutines.test.runBlockingTest
 import org.junit.After
 import org.junit.Before
-import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.junit.runners.JUnit4
 
 @ExperimentalCoroutinesApi
 @RunWith(JUnit4::class)
-class EventsViewModelTest {
-    
-    @get:Rule
-    var coroutinesTestRule = CoroutineTestRule()
-
-    @get:Rule
-    val instantExecutorRule = InstantTaskExecutorRule()
+class EventsViewModelTest : BaseViewModelTest() {
 
     private lateinit var viewModel: EventsViewModel
 
@@ -58,7 +51,7 @@ class EventsViewModelTest {
     @Test
     fun `should load events, display shimmer and hide shimmer when I open the app`() = runBlockingTest {
         val eventsResponse = getFakeEventsList()
-        every { repository.getEvents() } returns flowOf(eventsResponse)
+        coEvery { repository.getEvents() } returns flowOf(eventsResponse)
 
         viewModel.handle(EventsIntent.LoadEvents)
 
@@ -71,13 +64,13 @@ class EventsViewModelTest {
     fun `should open event details`() = runBlockingTest {
         val eventResponse = getFakeEventResponse()
 
-        every { repository.getEventDetail("1") } returns flowOf(eventResponse)
+        coEvery { repository.getEventDetail("1") } returns flowOf(eventResponse)
 
         viewModel.handle(EventsIntent.GetDetailsById("1"))
 
-        verify(exactly = 1) { state.onChanged(EventsState.DisplayLoading(isLoading = true)) }
-        verify(exactly = 1) { state.onChanged(EventsState.DisplayLoading(isLoading = false)) }
-        verify(exactly = 1) { state.onChanged(EventsState.OpenDetail(eventResponse)) }
+        state emittedOnce EventsState.DisplayLoading(isLoading = true)
+        state emittedOnce EventsState.DisplayLoading(isLoading = false)
+        state emittedOnce EventsState.OpenDetail(eventResponse)
     }
 
     private fun getFakeEventResponse() = EventEntity(
@@ -110,7 +103,7 @@ class Repository() : EventRepository {
         emit(getFakeEventResponse())
     }
 
-    override fun checkin(customerResponse: CustomerEntity) = flow {
+    override fun checkin(customer: CustomerEntity) = flow {
         emit(Any())
     }
 

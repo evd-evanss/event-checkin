@@ -6,7 +6,15 @@
     <color name="teal_200">#FF03DAC5</color>
     <color name="teal_700">#FF018786</color>
     <color name="black">#FF000000</color>
+    <color name="grayText">#616161</color>
     <color name="gray">#F8F8F8</color>
     <color name="white">#FFFFFFFF</color>
     <color name="red">#E73E31</color>
+    <color name="orangeDark">#FF5200</color>
+
+    <color name="cian">#b2ebf2</color>
+    <color name="cianDark">#81b9bf</color>
+    <color name="successColor">#97F49A</color>
+    <color name="blue_grey">#546e7a</color>
+    <color name="blueGreyDark">#29434e</color>
 </resources>

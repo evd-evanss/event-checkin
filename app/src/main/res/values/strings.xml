@@ -7,13 +7,16 @@
     <string name="name_placeholder">Seu nome:</string>
     <string name="email_placeholder">Seu email:</string>
     <string name="checkin_action">fazer check-in</string>
-    <string name="checkin_title">Check-In</string>
+    <string name="checkin_title">Registrar Entrada</string>
     <string name="invalid_email">Email inválido</string>
     <string name="invalid_name">Nome inválido</string>
-    <string name="welcome">Seja Bem Vindo :)</string>
+    <string name="welcome">Seja Bem Vindo 🤗</string>
     <string name="success_checkin">Checkin realizado com sucesso</string>
     <string name="action_close">Fechar</string>
-    <string name="default_error">Todo mundo erra e dessa vez fui eu\n Tente novamente mais tarde</string>
+    <string name="default_error">Todo mundo erra e dessa vez foram os nossos servidores 😰</string>
     <string name="action_try_again">Tentar Novamente</string>
-    <string name="ops">":( Ops! "</string>
+    <string name="ops">"Ops! "</string>
+    <string name="events">Eventos</string>
+    <string name="share_subject">Compartilhar</string>
+    <string name="share_using">Compartilhar Usando</string>
 </resources>

@@ -5,20 +5,25 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical">
 
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="16dp"
+        android:background="@color/cianDark" />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/verticalMargin"
         android:orientation="horizontal">
+
         <TextView
-            android:textSize="@dimen/textTitle"
-            android:text="@string/checkin_title"
-            android:textColor="@color/black"
+            style="@style/TextTitle"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/horizontalMargin"
             android:layout_marginEnd="@dimen/horizontalMargin"
             android:layout_weight="1"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"/>
+            android:text="@string/checkin_title" />
 
         <androidx.appcompat.widget.AppCompatImageView
             android:id="@+id/checkingCloseIv"
@@ -35,11 +40,14 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/verticalMargin"
         android:layout_marginStart="@dimen/horizontalMargin"
-        android:layout_marginEnd="@dimen/horizontalMargin">
+        android:layout_marginEnd="@dimen/horizontalMargin"
+        app:hintTextColor="@color/grayText"
+        app:boxBackgroundColor="@null">
 
         <com.google.android.material.textfield.TextInputEditText
             android:hint="@string/name_placeholder"
             android:maxLines="@integer/max_line_name"
+            android:imeOptions="actionNext"
             android:inputType="textPersonName"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -49,12 +57,15 @@
         android:id="@+id/checkingEmailTv"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        app:hintTextColor="@color/grayText"
         android:layout_marginTop="@dimen/verticalMargin"
         android:layout_marginStart="@dimen/horizontalMargin"
-        android:layout_marginEnd="@dimen/horizontalMargin">
+        android:layout_marginEnd="@dimen/horizontalMargin"
+        app:boxBackgroundColor="@null">
 
         <com.google.android.material.textfield.TextInputEditText
             android:hint="@string/email_placeholder"
+            android:imeOptions="actionDone"
             android:inputType="textEmailAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
@@ -64,12 +75,14 @@
         android:id="@+id/checkingSubscribeBt"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_marginStart="@dimen/horizontalMargin"
         android:layout_marginTop="@dimen/verticalMargin"
         android:layout_marginEnd="@dimen/horizontalMargin"
         android:layout_marginBottom="@dimen/verticalMargin"
-        android:text="@string/checkin_action" />
-
+        android:text="@string/checkin_action"
+        android:textColor="@color/grayText"
+        android:textStyle="bold" />
     <ProgressBar
         android:id="@+id/checkingLoadingPb"
         android:layout_marginTop="@dimen/verticalMargin"
