@@ -1,11 +1,8 @@
 package com.sugarspoon.data.sources
 
-import com.google.gson.Gson
 import com.sugarspoon.data.RetrofitServiceFactory
-import com.sugarspoon.data.model.entity.CustomerEntity
-import com.sugarspoon.data.model.response.CustomerResponse
+import com.sugarspoon.data.model.request.CustomerRequest
 import com.sugarspoon.data.model.response.EventResponse
-import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit
@@ -28,10 +25,8 @@ class EventsDataSource @Inject constructor(
         emit(service.getEventsDetail(id))
     }
 
-    fun setCheckin(customer: CustomerEntity) = flow {
-        emit(
-            service.setCheckin(customer)
-        )
+    fun setCheckin(request: CustomerRequest) = flow {
+        emit(service.setCheckin(request))
     }
 
     interface Service {
@@ -44,7 +39,7 @@ class EventsDataSource @Inject constructor(
 
         @Headers("Content-Type: application/json")
         @POST("checkin")
-        suspend fun setCheckin(@Body customer: CustomerEntity): Any
+        suspend fun setCheckin(@Body request: CustomerRequest): Any
 
     }
 }
