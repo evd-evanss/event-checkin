@@ -12,7 +12,7 @@ import javax.inject.Inject
 interface EventRepository {
     fun getEvents(): Flow<List<EventEntity>>
     fun getEventDetail(id: String): Flow<EventEntity>
-    fun checkin(customer: CustomerEntity): Flow<String>
+    fun checkin(customer: CustomerEntity): Flow<Any>
 }
 
 class EventRepositoryImpl @Inject constructor(

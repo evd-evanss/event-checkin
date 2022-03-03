@@ -19,10 +19,10 @@ import org.junit.After
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
+import org.mockito.junit.MockitoJUnitRunner
 
 @ExperimentalCoroutinesApi
-@RunWith(JUnit4::class)
+@RunWith(MockitoJUnitRunner.Silent::class)
 class DetailsViewModelTest : BaseViewModelTest() {
 
     private lateinit var viewModel: DetailsViewModel
