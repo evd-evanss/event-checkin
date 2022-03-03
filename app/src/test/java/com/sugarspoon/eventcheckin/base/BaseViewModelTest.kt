@@ -7,12 +7,9 @@ import com.sugarspoon.data.model.entity.CustomerEntity
 import com.sugarspoon.rules.CoroutineTestRule
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import org.junit.Rule
-import org.junit.runner.RunWith
-import org.junit.runners.JUnit4
 import org.mockito.Mockito.*
 
 @ExperimentalCoroutinesApi
-@RunWith(JUnit4::class)
 open class BaseViewModelTest {
 
     @get:Rule
