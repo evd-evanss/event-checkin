@@ -13,4 +13,15 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - name: Unit tests
-        run: ./gradlew test
+        run: ./gradlew :app:testDebugUnitTest
+
+      - name: Upload Report
+        uses: 'actions/upload-artifact@v2'
+        with:
+          name: report.xml
+          path: ${{ github.workspace }}/app/build/reports/tests/testDebugUnitTest/index.html
+
+      - name: Get the Coverage info
+        run: |
+          echo "Total coverage ${{ steps.jacoco.outputs.coverage-overall }}"
+          echo "Changed Files coverage ${{ steps.jacoco.outputs.coverage-changed-files }}"
