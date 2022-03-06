@@ -1,4 +1,4 @@
-name: Test
+name: Measure coverage
 on:
   push:
     branches:
@@ -12,7 +12,8 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-      - name: Unit tests
+
+      - name: Run Coverage
         run: ./gradlew :app:testDebugUnitTest
 
       - name: Upload Report
@@ -23,7 +24,7 @@ jobs:
 
       - name: Jacoco Report to PR
         id: jacoco
-        uses: event-checkin/jacoco-report@v1.1
+        uses: sugarspoon/jacoco-report@v1.1
         with:
           path: ${{ github.workspace }}/app/build/reports/tests/testDebugUnitTest/index.html
           token: ${{ secrets.GITHUB_TOKEN }}
