@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd"><html xmlns="http://www.w3.org/1999/xhtml" lang="en"><head><meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/><link rel="stylesheet" href="../jacoco-resources/report.css" type="text/css"/><link rel="shortcut icon" href="../jacoco-resources/report.gif" type="image/gif"/><title>FlowExtension.kt</title><link rel="stylesheet" href="../jacoco-resources/prettify.css" type="text/css"/><script type="text/javascript" src="../jacoco-resources/prettify.js"></script></head><body onload="window['PR_TAB_WIDTH']=4;prettyPrint()"><div class="breadcrumb" id="breadcrumb"><span class="info"><a href="../jacoco-sessions.html" class="el_session">Sessions</a></span><a href="../index.html" class="el_report">app</a> &gt; <a href="index.source.html" class="el_package">com.sugarspoon.eventcheckin.utils</a> &gt; <span class="el_source">FlowExtension.kt</span></div><h1>FlowExtension.kt</h1><pre class="source lang-java linenums">package com.sugarspoon.eventcheckin.utils
+
+import com.google.gson.Gson
+import com.sugarspoon.data.model.exception.ErrorResponse
+import com.sugarspoon.data.model.exception.RetrofitException
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers.IO
+import kotlinx.coroutines.Dispatchers.Main
+import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
+import retrofit2.HttpException
+import java.lang.Exception
+
+<span class="fc" id="L16">fun &lt;T&gt; Flow&lt;T&gt;.onCollect(</span>
+<span class="nc" id="L17">    onSuccess:(suspend (t: T) -&gt; Unit)? = null,</span>
+<span class="nc" id="L18">    onError: ((e: Throwable) -&gt; Unit)? = null,</span>
+<span class="nc" id="L19">    onLoading: ((isLoading: Boolean) -&gt; Unit)? = null,</span>
+<span class="fc" id="L20">    coroutineScope: CoroutineScope = CoroutineScope(IO)</span>
+) {
+<span class="fc" id="L22">    coroutineScope.launch {</span>
+        withContext(Main) {
+            onLoading?.invoke(true)
+        }
+        try {
+            collect { result -&gt;
+                onSuccess?.let {
+                    withContext(Main) {
+                        it(result)
+                        onLoading?.invoke(false)
+                    }
+                }
+            }
+        } catch (e: Throwable) {
+            withContext(Main) {
+                if (e is HttpException) {
+                    val json = e.response()?.errorBody()?.string()
+                    try {
+                        val message = Gson().fromJson(json, ErrorResponse::class.java)
+                        onError?.invoke(RetrofitException.create(message.message, e, RetrofitException.Type.HTTP))
+                    } catch (e: Exception) {
+                        onError?.invoke(e)
+                    }
+                } else {
+                    onError?.invoke(e)
+                }
+                onLoading?.invoke(false)
+            }
+        }
+    }
+
+<span class="fc" id="L53">}</span>
+</pre><div class="footer"><span class="right">Created with <a href="http://www.jacoco.org/jacoco">JaCoCo</a> 0.8.7.202105040129</span></div></body></html>
