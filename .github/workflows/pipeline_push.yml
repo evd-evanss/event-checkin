@@ -2,7 +2,7 @@ name: Measure coverage
 on:
   push:
     branches:
-      - pipelines
+      - master
 jobs:
   unit_tests:
     runs-on: [ubuntu-latest]
