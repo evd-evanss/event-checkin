@@ -180,7 +180,7 @@ def setupAndroidReporting() {
                     xml.enabled false // change if needed
                     html {
                         enabled true
-                        destination file("${buildDir}/coverage-report")
+                        destination file("$rootDir/cover-reports/jacoco/${project.name}/jacocoTestReport.html")
                     }
                 }
             }
