@@ -1,4 +1,4 @@
-![Cobertura de Testes](.github/badges/jacoco.svg) ![Cobertura de Testes](.github/badges/branches.svg)
+![Cobertura de Testes](.github/badges/jacoco.svg) 
 
 
 # Event Checkin App
