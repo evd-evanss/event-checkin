@@ -1,8 +1,13 @@
+- name: Extract branch name
+  shell: bash
+  run: echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
+  id: extract_branch
+
 name: Test
 on:
   push:
     branches:
-      - pipelines
+      - ${{ steps.extract_branch.outputs.branch }}
 jobs:
   unit_tests:
     runs-on: [ubuntu-latest]
