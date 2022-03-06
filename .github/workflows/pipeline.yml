@@ -19,7 +19,7 @@ jobs:
         uses: 'actions/upload-artifact@v2'
         with:
           name: report.xml
-          path: ${{ github.workspace }}app/build/reports/tests/testReleaseUnitTest/index.html
+          path: ${{ github.workspace }}/app/build/reports/tests/testReleaseUnitTest/index.html
 
       - name: Jacoco Report to PR
         id: jacoco
