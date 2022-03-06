@@ -1,7 +1,4 @@
-![Cobertura de Testes](.github/badges/jacoco.svg) 
-
-
-# Event Checkin App
+# Event Checkin App    ![Cobertura de Testes](.github/badges/jacoco.svg) 
 
 ## Arquitetura
 Este aplicativo está separado em dois módulos:
