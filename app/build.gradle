@@ -5,6 +5,8 @@ plugins {
     id 'dagger.hilt.android.plugin'
 }
 
+apply from: "$project.rootDir/jacoco.gradle"
+
 android {
     compileSdk 32
 
@@ -22,6 +24,10 @@ android {
 
     buildTypes {
         release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        debug {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
@@ -84,4 +90,14 @@ dependencies {
         exclude group: 'glide-parent'
     }
 
+}
+
+configurations.all{
+    resolutionStrategy {
+        eachDependency { details ->
+            if ('org.jacoco' == details.requested.group) {
+                details.useVersion "0.8.7"
+            }
+        }
+    }
 }
