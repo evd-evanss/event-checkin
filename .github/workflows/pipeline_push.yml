@@ -23,7 +23,7 @@ jobs:
 
       - name: Jacoco Report to PR
         id: jacoco
-        uses: event-checking/jacoco-report@v1.1
+        uses: event-checkin/jacoco-report@v1.1
         with:
           path: ${{ github.workspace }}/app/build/reports/tests/testDebugUnitTest/index.html
           token: ${{ secrets.GITHUB_TOKEN }}
