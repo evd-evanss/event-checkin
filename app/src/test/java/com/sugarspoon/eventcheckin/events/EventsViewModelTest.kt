@@ -32,12 +32,11 @@ class EventsViewModelTest : BaseViewModelTest() {
     private lateinit var state: Observer<EventsState>
 
     @RelaxedMockK
-    private lateinit var repository: Repository
+    private lateinit var repository: EventRepository
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        repository = spyk(Repository())
         viewModel = EventsViewModel(repository)
         state = spyk<Observer<EventsState>>()
         viewModel.state.observeForever(state)
@@ -55,25 +54,38 @@ class EventsViewModelTest : BaseViewModelTest() {
 
         viewModel.handle(EventsIntent.LoadEvents)
 
-        verify(exactly = 1) { state.onChanged(EventsState.DisplayShimmer(isLoading = true)) }
-        verify(exactly = 1) { state.onChanged(EventsState.DisplayShimmer(isLoading = false)) }
-        verify(exactly = 1) { state.onChanged(EventsState.UpdateData(eventsResponse)) }
+        state emittedOnce EventsState.DisplayShimmer(isLoading = true)
+        state emittedOnce EventsState.UpdateData(eventsResponse)
+        state emittedOnce EventsState.DisplayShimmer(isLoading = false)
     }
 
     @Test
-    fun `should open event details`() = runBlockingTest {
-        val eventResponse = getFakeEventResponse()
+    fun `should load events when click in try again button`() = runBlockingTest {
+        val eventsResponse = getFakeEventsList()
+        coEvery { repository.getEvents() } returns flowOf(eventsResponse)
 
-        coEvery { repository.getEventDetail("1") } returns flowOf(eventResponse)
+        viewModel.handle(EventsIntent.TryAgain)
 
-        viewModel.handle(EventsIntent.GetDetailsById("1"))
-
-        state emittedOnce EventsState.DisplayLoading(isLoading = true)
-        state emittedOnce EventsState.DisplayLoading(isLoading = false)
-        state emittedOnce EventsState.OpenDetail(eventResponse)
+        state emittedOnce EventsState.DisplayShimmer(isLoading = true)
+        state emittedOnce EventsState.UpdateData(eventsResponse)
+        state emittedOnce EventsState.DisplayShimmer(isLoading = false)
     }
 
-    private fun getFakeEventResponse() = EventEntity(
+    @Test
+    fun `should open details when click in event`() {
+        val eventResponse = response
+        val eventId = "1"
+
+        coEvery { repository.getEventDetail(eventId) } returns flowOf(eventResponse)
+
+        viewModel.handle(EventsIntent.GetDetailsById(eventId))
+
+        state emittedOnce EventsState.DisplayLoading(isLoading = true)
+        state emittedOnce EventsState.OpenDetail(eventResponse)
+        state emittedOnce EventsState.DisplayLoading(isLoading = false)
+    }
+
+    private val response = EventEntity(
         date = 1645464356,
         title = "",
         description = "Feira de adoção de animais",
@@ -87,34 +99,8 @@ class EventsViewModelTest : BaseViewModelTest() {
     private fun getFakeEventsList(): List<EventEntity> {
         val events = mutableListOf<EventEntity>()
         repeat(2) {
-            events.add(getFakeEventResponse())
+            events.add(response)
         }
         return events
     }
-}
-
-class Repository() : EventRepository {
-
-    override fun getEvents() = flow {
-        emit(listOf<EventEntity>())
-    }
-
-    override fun getEventDetail(id: String) = flow {
-        emit(getFakeEventResponse())
-    }
-
-    override fun checkin(customer: CustomerEntity) = flow {
-        emit(Any())
-    }
-
-    private fun getFakeEventResponse() = EventEntity(
-        date = 1645464356,
-        title = "",
-        description = "Feira de adoção de animais",
-        image = "www.google.com.br/logo.png",
-        latitude = -23.6073315,
-        longitude = -46.5252506,
-        price = 18.90,
-        id = "1"
-    )
 }

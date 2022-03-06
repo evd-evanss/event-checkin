@@ -13,3 +13,5 @@
 .externalNativeBuild
 .cxx
 local.properties
+/cover-reports
+/.github/badges

@@ -3,9 +3,9 @@ package com.sugarspoon.eventcheckin.details
 import androidx.lifecycle.Observer
 import com.sugarspoon.data.model.entity.CustomerEntity
 import com.sugarspoon.data.model.entity.EventShareEntity
+import com.sugarspoon.data.repositories.EventRepository
 import com.sugarspoon.eventcheckin.base.BaseViewModelTest
 import com.sugarspoon.eventcheckin.base.emittedOnce
-import com.sugarspoon.eventcheckin.repositoryfake.Repository
 import com.sugarspoon.eventcheckin.ui.details.DetailsIntent
 import com.sugarspoon.eventcheckin.ui.details.DetailsState
 import com.sugarspoon.eventcheckin.ui.details.DetailsViewModel
@@ -31,12 +31,11 @@ class DetailsViewModelTest : BaseViewModelTest() {
     private lateinit var state: Observer<DetailsState>
 
     @RelaxedMockK
-    private lateinit var repository: Repository
+    private lateinit var repository: EventRepository
 
     @Before
     fun setup() {
         MockKAnnotations.init(this)
-        repository = spyk(Repository())
         viewModel = DetailsViewModel(repository)
         state = spyk<Observer<DetailsState>>()
         viewModel.state.observeForever(state)
@@ -49,7 +48,7 @@ class DetailsViewModelTest : BaseViewModelTest() {
 
     @Test
     fun `should make ckeck-in on click checkin button`() = runBlockingTest {
-        val customer = getFakeCustomer()
+        val customer = response
 
         coEvery { repository.checkin(customer) } returns flowOf(Any())
 
@@ -74,7 +73,7 @@ class DetailsViewModelTest : BaseViewModelTest() {
         state emittedOnce DetailsState.ShareEvent(event.content)
     }
 
-    private fun getFakeCustomer() = CustomerEntity(
+    private val response = CustomerEntity(
         eventId = "1",
         name = "Evandro Costa",
         email = "revandro77@yahoo.com.br"
