@@ -20,17 +20,13 @@ jobs:
         uses: 'actions/upload-artifact@v2'
         with:
           name: report.xml
-          path: ${{ github.workspace }}/app/build/reports/tests/testDebugUnitTest/index.html
+          path: ${{ github.workspace }}/cover-reports/jacoco/app/index.html
 
-      - name: Jacoco Report to PR
+      - name: Generate JaCoCo Badge
         id: jacoco
-        uses: sugarspoon/jacoco-report@v1.1
+        uses: cicirello/jacoco-badge-generator@v2
         with:
-          path: ${{ github.workspace }}/app/build/reports/tests/testDebugUnitTest/index.html
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 40
-          min-coverage-changed-files: 60
-          debug-mode: false
+          jacoco-csv-file: cover-reports/jacoco/app/jacocoTestReport.csv
 
       - name: Get the Coverage info
         run: |
