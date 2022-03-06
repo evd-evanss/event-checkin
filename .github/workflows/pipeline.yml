@@ -13,7 +13,7 @@ jobs:
           distribution: 'zulu'
           java-version: '11'
       - name: Unit tests
-        run: ./gradlew testCoverage
+        run: ./gradlew :app:testDebugUnitTest
 
       - name: Upload Report
         uses: 'actions/upload-artifact@v2'
