@@ -12,11 +12,6 @@ jobs:
         with:
           distribution: 'zulu'
           java-version: '11'
-      - name: Get Current Branch
-          - shell: bash
-          - run : echo "##[set-output name=branch;]$(echo ${GITHUB_REF#refs/heads/})"
-          - id : extract_branch
-
       - name: Unit tests
         run: ./gradlew :app:testDebugUnitTest
 
