@@ -1,3 +1,6 @@
+![Cobertura de Testes](.github/badges/jacoco.svg) ![Cobertura de Testes](.github/badges/branches.svg)
+
+
 # Event Checkin App
 
 ## Arquitetura
@@ -17,3 +20,4 @@ Mockk -> Escolhido para Testes Unitários
 Kotlin Flow -> Escolhido para chamadas assincronas
 Glide -> Escolhido para lidar com carregamento de imagens
 SkyDovesAndroidVeil -> Escolhido para animação de shimmer 
+Jacoco -> Utilizado para gerar relatórios de cobertura de testes
