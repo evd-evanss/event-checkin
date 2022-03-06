@@ -12,9 +12,15 @@ Escolhi este design pattern estrutural devido a sua facilidade de legibilidade a
 
 ## Frameworks/Libraries
 Retrofit, OkHttp, Gson -> Escolhido para manipulação de rede 
+
 Dagger Hilt -> Escolhido para injeção de dependências
+
 Mockk -> Escolhido para Testes Unitários
+
 Kotlin Flow -> Escolhido para chamadas assincronas
+
 Glide -> Escolhido para lidar com carregamento de imagens
+
 SkyDovesAndroidVeil -> Escolhido para animação de shimmer 
+
 Jacoco -> Utilizado para gerar relatórios de cobertura de testes
